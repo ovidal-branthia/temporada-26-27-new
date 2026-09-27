@@ -72,9 +72,11 @@ Es reconstrueixen en HTML/CSS (les captures reals pesen massa). Dos formats:
 **Publicar**:
 - Artifact (enllaç per a famílies): `Artifact` amb el mateix `file_path` → manté la URL. Actual: https://claude.ai/code/artifact/6affa43c-c0da-4b64-8f2d-ed680d927b87
 - Claude Design project `99c97f4c-52a9-4164-9d38-ecb087c35468`: `DesignSync write_files` a `Web Millores del Club Dinami-K 26-27 (CAT).html`.
-**Desplegar** (prod = https://novatemporada2627.dinamik.club/): `python3 build/assemble.py web-<doc>-….html artifact-<doc>-….html` → `cp` a `<doc>/index.html` (i `es/<doc>/`, `en/<doc>/`) → commit a `main` → push a `origin` (`ovidal-branthia/dinamik-nueva-temporada-26_27_LP`) → Vercel. L'antic `dinamik-ca/temporada-26-27-new` (remot `old-dinamik-ca`) ja NO es fa servir.
-**Push (autenticació)**: el llavero de macOS només té `ovidal-taxhia-br`. Cal el compte de `gh` `ovidal-branthia` (ho executa l'usuari):
-`gh auth switch -u ovidal-branthia && git -c credential.helper= -c credential.helper='!gh auth git-credential' push && gh auth switch -u dinamik-ca`
+**Desplegar** (prod = https://novatemporada2627.dinamik.club/): `python3 build/assemble.py web-<doc>-….html artifact-<doc>-….html` → `cp` a `<doc>/index.html` (i `es/<doc>/`, `en/<doc>/`) → commit a `main` → push a `origin` → Vercel.
+- `origin` = `ovidal-branthia/temporada-26-27-new` — **el repo que Vercel desplega** (abans `dinamik-ca/…`; la propietat a GitHub s'ha traspassat a `ovidal-branthia`, l'URL antiga hi redirigeix).
+- `lp` = `ovidal-branthia/dinamik-nueva-temporada-26_27_LP` — còpia privada del mateix historial, NO connectada a Vercel. Push-hi també per mantenir-la al dia.
+**Push (autenticació)**: el llavero de macOS només té `ovidal-taxhia-br`, que no té accés a aquests repos. Cal el compte de `gh` `ovidal-branthia` (ho executa l'usuari):
+`gh auth switch -u ovidal-branthia && git -c credential.helper= -c credential.helper='!gh auth git-credential' push origin main && git -c credential.helper= -c credential.helper='!gh auth git-credential' push lp main && gh auth switch -u dinamik-ca`
 
 ## Per fer un document NOU (quotes / horaris) amb la mateixa estructura
 1. Parteix del `<head>`/`<style>` de la font actual (mateixos tokens i components).
@@ -85,7 +87,7 @@ Es reconstrueixen en HTML/CSS (les captures reals pesen massa). Dos formats:
 6. Per al **hub**: portada simple amb 3 targetes (estil `.toc`/`.card`) enllaçant els 3 documents desplegats.
 
 ## Estat del site (fet)
-Site únic desplegable a https://novatemporada2627.dinamik.club/ (CA a l'arrel, `es/` i `en/`). Repo de producció: `ovidal-branthia/dinamik-nueva-temporada-26_27_LP` (branca `main`):
+Site únic desplegable a https://novatemporada2627.dinamik.club/ (CA a l'arrel, `es/` i `en/`). Repo de producció: `ovidal-branthia/temporada-26-27-new` (branca `main`, remot `origin`):
 - `index.html` = hub (des de `web-hub-dinamik-26-27.html`, enllaços relatius `millores/` `quotes/` `horaris/`).
 - `millores/index.html`, `quotes/index.html`, `horaris/index.html` = versions autònomes.
 - Cada `push` a `main` del repo de producció desplega a Vercel.
